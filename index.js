@@ -11,6 +11,10 @@ var schema = buildSchema(`
         courses (topic: String): [Course]
     }
 
+    type Mutation {
+        updateCourseTopic (id: Int!, topic: String!) : Course
+    }
+
     type Course {
         id: Int
         title: String
@@ -41,7 +45,7 @@ var dummyCourseData = [
         author: "Aditya Bhargava",
         description:
             "Grokking Algorithms is a fully illustrated, friendly guide that teaches you how to apply common algorithms to the practical problems you face every day as a programmer. You'll start with sorting and searching and, as you build up your skills in thinking algorithmically, you'll tackle more complex concerns such as data compression and artificial intelligence. Each carefully presented example includes helpful diagrams and fully annotated code samples in Python.",
-        topic: "Computer Science",
+        topic: "Pew Pew Pew",
         url:
             "https://www.amazon.com/Grokking-Algorithms-illustrated-programmers-curious/dp/1617292230/ref=zg_bs_3508_26?_encoding=UTF8&psc=1&refRID=ZFFA098DJNKE8WW3DWSD"
     }
@@ -53,22 +57,6 @@ var getCourse = args => {
     return dummyCourseData.filter(coursesData => coursesData.id === id)[0];
 };
 
-/**
- * ! In order to get course data that equals the ID provided as an argument.
- * * Client side
- query getSingleCourse($courseID: Int!) {
-  course(id: $courseID) {
-    title
-    author
-    description
-    topic
-    url
-  }
-}
-
-{ "courseID" : 1 }
- */
-
 var getCourses = args => {
     const { topic } = args;
     return dummyCourseData.filter(
@@ -76,50 +64,22 @@ var getCourses = args => {
     );
 };
 
-/**
- * ! In order to get course data that equals the topic (String) provided.
- * * Client side
-query getSingleCourses($courseTopic: String!) {
-  courses(topic: $courseTopic) {
-    title
-    author
-    description
-    topic
-    url
-  }
-}
+var updateCourseTopic = ({ id, topic }) => {
+    dummyCourseData.map(course => {
+        if (course.id === id) {
+            course.topic = topic;
+            return course;
+        }
+    });
 
-{
-  "courseTopic": "Computer Science"
-}
- */
-
-/**
- * Using Fragments
- query getCoursesWithFragments($courseID1:Int!, $courseID2:Int!){
-  course1: course(id: $courseID1){
-    ...courseFields
-  }
-  
-  course2: course(id: $courseID2){
-    ...courseFields
-  }
-}
-
-fragment courseFields on Course {
-  title
-  description
-  author
-  topic
-  url
-}
- 
- */
+    return dummyCourseData.find(course => course.id === id);
+};
 
 // Root Resolver
 var rootResolver = {
     course: getCourse,
-    courses: getCourses
+    courses: getCourses,
+    updateCourseTopic: updateCourseTopic
 };
 
 // Setting up an Express server and associate GraphQL endpoint.
