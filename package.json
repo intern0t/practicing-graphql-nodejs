@@ -1,0 +1,33 @@
+{
+  "name": "practicing-graphql-nodejs",
+  "version": "1.0.0",
+  "description": "This is simply my way to tracking file changes as I rush through GraphQL's documentations and integrating it in NodeJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/intern0t/practicing-graphql-nodejs.git"
+  },
+  "keywords": [
+    "GraphQL",
+    "Learning",
+    "Practicing",
+    "NodeJS",
+    "Backend",
+    "Server",
+    "API"
+  ],
+  "author": "Prashant Shrestha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/intern0t/practicing-graphql-nodejs/issues"
+  },
+  "homepage": "https://github.com/intern0t/practicing-graphql-nodejs#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2"
+  }
+}
